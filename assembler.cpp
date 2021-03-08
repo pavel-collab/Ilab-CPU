@@ -27,15 +27,11 @@ int main() {
         keyword = strtok(string, " \n");
 
         while (keyword != NULL) {
-        printf("%s\n", keyword);
             if (!strcmp(keyword, "push")) {
                 fprintf(assembler, "%d\n", PUSH);
             }
-            else if (!strcmp(keyword, "pop")) {
-                fprintf(assembler, "%d\n", POP);
-            }
-            else if (!strcmp(keyword, "add")) {
-                fprintf(assembler, "%d\n", ADD);
+            else if (!strcmp(keyword, "sum")) {
+                fprintf(assembler, "%d\n", SUM);
             }
             else if (!strcmp(keyword, "mul")) {
                 fprintf(assembler, "%d\n", MUL);

@@ -1,2 +1,8 @@
-all:
+stack:
+	gcc -c stack.c
+assembler:
 	gcc -o assembler assembler.cpp
+	./assembler
+CPU:
+	gcc -c CPU.c
+	gcc -o CPU stack.o CPU.o
