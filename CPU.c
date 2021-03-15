@@ -5,11 +5,22 @@
 
 #include "stack.h"
 
-int main() {
+//* file with machine code: commands_codes.txt
+
+// TODO: сделать структуру, хранящую стек, регистры, и "указатель" на номер ассемблерной команды
+// TODO: реализовать загрузку и извлечение данных в регистр
+// TODO: стелать jmp (функция переноса коретки в файле)
+
+int main(int argc, char* argv[]) {
+
+    if (argc < 2) {
+        printf("ERROR, expected more arguments\n");
+        return -1;
+    }
 
     stack stk = {left_canary, NULL, 0, 0, 0, right_canary};
 
-    FILE* command_list = fopen("commands_codes.txt", "rb");
+    FILE* command_list = fopen(argv[1], "rb");
     assert(command_list != NULL);
 
     stack_construct(&stk, 5);

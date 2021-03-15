@@ -7,9 +7,14 @@
 
 //! всегда менять формат текстового файла на LF вместо CRLF!!!!!!!!!!!!!!!!!!!!!
 
-int main() {
+int main(int argc, char* argv[]) {
 
-    FILE* command_list = fopen("commands.txt", "rb");
+    if (argc < 2) {
+        printf("ERROR, expected more arguments\n");
+        return -1;
+    }
+
+    FILE* command_list = fopen(argv[1], "rb");
     assert(command_list != NULL);
     FILE* assembler = fopen("commands_codes.txt", "wb");
     assert(assembler != NULL);
@@ -62,4 +67,3 @@ int main() {
 }
 
 // TODO: написать ассерты
-// TODO: написать тело CPU, подумать, как связать это с файлом stck
