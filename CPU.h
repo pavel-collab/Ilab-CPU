@@ -245,7 +245,7 @@ int CPU_calculation(CPU loc_CPU, FILE* command_list) {
             default: 
                 printf("Unexpected error.\n");
                 printf("instruction pointer IP = [%d]\n", loc_CPU.IP);
-                break;
+                exit(-1);
             } 
         }
 

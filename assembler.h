@@ -165,4 +165,106 @@ int ASM (FILE* assembler, string* strings, long long str_number) {
     }   
 
     return 0;                                                           
-}                                                          
+}   
+
+//====================================================================================================
+
+int dis_asm(FILE* assemble, FILE* command_list, long long size_of_file) {
+
+    int command = 0;
+
+    while (size_of_file > 0) {
+
+        fscanf(assemble, "%d", &command);
+
+        switch (command) {
+            case END :
+            {
+                fprintf(command_list, "end\n");
+                break;
+            }
+            case ADD :
+            {
+                fprintf(command_list, "add ");
+
+                size_of_file--;
+                fscanf(assemble, "%d", &command);
+                fprintf(command_list, "%d\n", command);
+                break;
+            }
+            case SUM :
+            {
+                fprintf(command_list, "sum\n");
+                break;
+            }
+            case MUL :
+            {
+                fprintf(command_list, "mul\n");
+                break;
+            }
+            case DIV :
+            {
+                fprintf(command_list, "div\n");
+                break;
+            }
+            case OUT :
+            {
+                fprintf(command_list, "out\n");
+                break;
+            }
+            case IN :
+            {
+                fprintf(command_list, "in\n");
+                break;
+            }
+            case PUSH_RAX :
+            {
+                fprintf(command_list, "push rax\n");
+                break;
+            }
+            case PUSH_RBX :
+            {
+                fprintf(command_list, "push rbx\n");
+                break;
+            }
+            case PUSH_RCX :
+            {
+                fprintf(command_list, "push rcx\n");
+                break;
+            }
+            case PUSH_RDX :
+            {
+                fprintf(command_list, "push rdx\n");
+                break;
+            }
+            case POP_RAX :
+            {
+                fprintf(command_list, "pop rax\n");
+                break;
+            }
+            case POP_RBX :
+            {
+                fprintf(command_list, "pop rbx\n");
+                break;
+            }
+            case POP_RCX :
+            {
+                fprintf(command_list, "pop rcx\n");
+                break;
+            }
+            case POP_RDX :
+            {
+                fprintf(command_list, "pop rdx\n");
+                break;
+            }
+            default :
+                printf("Error, unexpected command\n");
+                exit(-1);
+        }
+
+        size_of_file--;
+    }
+
+return 0;
+
+}

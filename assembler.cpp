@@ -22,6 +22,8 @@ int main(int argc, char* argv[]) {
     fseek(command_list, 0, SEEK_SET);
     long long size_of_file = file_size(command_list);
 
+    printf("size_of_file = %lli", size_of_file);
+
     char* buf = (char*) calloc(size_of_file + 1, sizeof(char));
 
     long long res = fread(buf, sizeof(char), size_of_file + 1, command_list);
