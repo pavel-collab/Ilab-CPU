@@ -5,13 +5,10 @@
 
 #include "stack.h"
 
-// TODO: реализовать загрузку и извлечение данных в регистр
-// TODO: стелать jmp (функция переноса коретки в файле)
-
 typedef struct _CPU {
     stack stk;
     unsigned int IP; // указатель на номер команды в потоке
-    int rax; // регистр
+    int rax;         // регистр
 } CPU;
 
 int main(int argc, char* argv[]) {
