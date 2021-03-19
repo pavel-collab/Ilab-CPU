@@ -9,15 +9,23 @@ enum COMMANDS {
     MUL,      // pop two elements from stack and push to stack multiplication of this elements
     DIV,      // pop two elements from stack and push to stack division of this elements
     OUT,      // pop element from stack and output it to the consol 
-    IN        // input data in the consol and push it to the stack
+    IN,       // input data in the consol and push it to the stack
+    PUSH_RAX, // pop value from rax and push in to stack
+    PUSH_RBX, // pop value from rbx and push in to stack
+    PUSH_RCX, // pop value from rcx and push in to stack
+    PUSH_RDX, // pop value from rdx and push in to stack
+    POP_RAX,  // pop value from the stack and pusk it to rax
+    POP_RBX,  // pop value from the stack and pusk it to rbx
+    POP_RCX,  // pop value from the stack and pusk it to rcx
+    POP_RDX,  // pop value from the stack and pusk it to rdx
 };
 
 //====================================================================================================
 
-struct string { //struct -- string
+typedef struct _string { //struct -- string
     char* str;   //pointer to string
     int len;     //length of string
-};
+} string;
 
 //====================================================================================================
 
@@ -35,7 +43,7 @@ long long file_size(FILE *stream){
 //====================================================================================================
 
 //function filling array of structures by strings from using file
-int Fill_StringS(char* buf, struct string* strings, long long size) {
+int Fill_StringS(char* buf, string* strings, long long size) {
 
     char* point_1 = 0;
     char* point_2 = buf;
@@ -109,6 +117,41 @@ int ASM (FILE* assembler, string* strings, long long str_number) {
             }
             else if (!strcmp(keyword, "end")) {
                 fprintf(assembler, "%d\n", END);
+            }
+            else if (!strcmp(keyword, "push")) {
+                keyword = strtok(NULL, " \n");
+
+                if (!strcmp(keyword, "rax")) {
+                    fprintf(assembler, "%d\n", PUSH_RAX);
+                }
+                else if (!strcmp(keyword, "rbx")) {
+                    fprintf(assembler, "%d\n", PUSH_RBX);
+                }
+                else if (!strcmp(keyword, "rcx")) {
+                    fprintf(assembler, "%d\n", PUSH_RCX);
+                }
+                else if (!strcmp(keyword, "rdx")) {
+                    fprintf(assembler, "%d\n", PUSH_RDX);
+                }
+            }
+            else if (!strcmp(keyword, "pop")) {
+                keyword = strtok(NULL, " \n");
+
+                if (!strcmp(keyword, "rax")) {
+                    fprintf(assembler, "%d\n", POP_RAX);
+                }
+                else if (!strcmp(keyword, "rbx")) {
+                    fprintf(assembler, "%d\n", POP_RBX);
+                }
+                else if (!strcmp(keyword, "rcx")) {
+                    fprintf(assembler, "%d\n", POP_RCX);
+                }
+                else if (!strcmp(keyword, "rdx")) {
+                    fprintf(assembler, "%d\n", POP_RDX);
+                }
+            }
+            else if (!strcmp(keyword, "in")) {
+                fprintf(assembler, "%d\n", IN);
             }
             else {
                 printf("Error, unexpected command\n");

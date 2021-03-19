@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
     }
 
     stack stk = {left_canary, NULL, 0, 0, 0, right_canary};
-    CPU loc_CPU = {stk, 0, 0};
+    CPU loc_CPU = {stk, 0, 0, 0, 0, 0};
 
     FILE* command_list = fopen(argv[1], "rb");
     assert(command_list != NULL);

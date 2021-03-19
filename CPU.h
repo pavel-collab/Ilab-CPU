@@ -3,12 +3,19 @@
 #include <string.h>
 #include <assert.h>
 
+#include "assembler.h"
 #include "stack.h"
 
 typedef struct _CPU {
     stack stk;
+
     unsigned int IP; // указатель на номер команды в потоке
-    int rax;         // регистр
+
+    int rax;         // регистр rax
+    int rbx;         // регистр rbx
+    int rcx;         // регистр rcx
+    int rdx;         // регистр rdx
+
 } CPU;
 
 int CPU_calculation(CPU loc_CPU, FILE* command_list) {
@@ -21,13 +28,13 @@ int CPU_calculation(CPU loc_CPU, FILE* command_list) {
     while (fscanf(command_list, "%d", &select_act) != 0) {
 
         switch (select_act) { 
-            case 0: 
+            case END: 
             {
                 printf("completion of working.\n");
                 printf("instruction pointer IP = [%d]\n", loc_CPU.IP);
                 return 0;
             } 
-            case 1: 
+            case ADD: 
             {
                 if (fscanf(command_list, "%d", &element) == 0) {
                     printf("ERROR, no data to push!\n");
@@ -46,7 +53,7 @@ int CPU_calculation(CPU loc_CPU, FILE* command_list) {
                     break; 
                 } 
             }
-            case 5: 
+            case OUT: 
             {
                 element = stack_pop(&(loc_CPU.stk)); 
                 if (element != POISON) { 
@@ -60,7 +67,7 @@ int CPU_calculation(CPU loc_CPU, FILE* command_list) {
                     break; 
                 } 
             }
-            case 2:
+            case SUM:
             {
                 elem_1 = stack_pop(&(loc_CPU.stk));
                 elem_2 = stack_pop(&(loc_CPU.stk));
@@ -77,7 +84,7 @@ int CPU_calculation(CPU loc_CPU, FILE* command_list) {
                     break; 
                 }
             }
-            case 3:
+            case MUL:
             {
                 elem_1 = stack_pop(&(loc_CPU.stk));
                 elem_2 = stack_pop(&(loc_CPU.stk));
@@ -94,7 +101,7 @@ int CPU_calculation(CPU loc_CPU, FILE* command_list) {
                     break; 
                 }
             }
-            case 4:
+            case DIV:
             {
                 elem_1 = stack_pop(&(loc_CPU.stk));
                 elem_2 = stack_pop(&(loc_CPU.stk));
@@ -107,6 +114,130 @@ int CPU_calculation(CPU loc_CPU, FILE* command_list) {
                 } 
                 else { 
                     printf("Error with div.\n"); 
+                    printf("instruction pointer IP = [%d]\n", loc_CPU.IP);
+                    break; 
+                }
+            }
+            case IN :
+            {
+                printf("pleas, input element: ");
+                scanf("%d", &element);
+
+                if (stack_push(&(loc_CPU.stk), element) == 0) { 
+                    printf("push compleated successful.\n");
+                    loc_CPU.IP += 2;
+                    break; 
+                } 
+                else { 
+                    printf("Error with in.\n");
+                    printf("instruction pointer IP = [%d]\n", loc_CPU.IP);
+                    break; 
+                }
+            }
+            case POP_RAX :
+            {
+                element = stack_pop(&(loc_CPU.stk)); 
+                if (element != POISON) { 
+                    loc_CPU.rax = element;
+                    loc_CPU.IP++;
+                    break; 
+                } 
+                else { 
+                    printf("Error with pop rax.\n"); 
+                    printf("instruction pointer IP = [%d]\n", loc_CPU.IP);
+                    break; 
+                }
+            }
+            case POP_RBX :
+            {
+                element = stack_pop(&(loc_CPU.stk)); 
+                if (element != POISON) { 
+                    loc_CPU.rbx = element;
+                    loc_CPU.IP++;
+                    break; 
+                } 
+                else { 
+                    printf("Error with pop rbx.\n"); 
+                    printf("instruction pointer IP = [%d]\n", loc_CPU.IP);
+                    break; 
+                }
+            }
+            case POP_RCX :
+            {
+                element = stack_pop(&(loc_CPU.stk)); 
+                if (element != POISON) { 
+                    loc_CPU.rcx = element;
+                    loc_CPU.IP++;
+                    break; 
+                } 
+                else { 
+                    printf("Error with pop rcx.\n"); 
+                    printf("instruction pointer IP = [%d]\n", loc_CPU.IP);
+                    break; 
+                }
+            }
+            case POP_RDX :
+            {
+                element = stack_pop(&(loc_CPU.stk)); 
+                if (element != POISON) { 
+                    loc_CPU.rdx = element;
+                    loc_CPU.IP++;
+                    break; 
+                } 
+                else { 
+                    printf("Error with pop rdx.\n"); 
+                    printf("instruction pointer IP = [%d]\n", loc_CPU.IP);
+                    break; 
+                }
+            }
+            case PUSH_RAX :
+            {
+                if (stack_push(&(loc_CPU.stk), loc_CPU.rax) == 0) { 
+                    printf("push compleated successful.\n");
+                    loc_CPU.IP += 1;
+                    break; 
+                } 
+                else { 
+                    printf("Error with push rax.\n");
+                    printf("instruction pointer IP = [%d]\n", loc_CPU.IP);
+                    break; 
+                }
+            }
+            case PUSH_RBX :
+            {
+                if (stack_push(&(loc_CPU.stk), loc_CPU.rbx) == 0) { 
+                    printf("push compleated successful.\n");
+                    loc_CPU.IP += 1;
+                    break; 
+                } 
+                else { 
+                    printf("Error with push rbx.\n");
+                    printf("instruction pointer IP = [%d]\n", loc_CPU.IP);
+                    break; 
+                }
+            }
+            case PUSH_RCX :
+            {
+                if (stack_push(&(loc_CPU.stk), loc_CPU.rcx) == 0) { 
+                    printf("push compleated successful.\n");
+                    loc_CPU.IP += 1;
+                    break; 
+                } 
+                else { 
+                    printf("Error with push rcx.\n");
+                    printf("instruction pointer IP = [%d]\n", loc_CPU.IP);
+                    break; 
+                }
+            }
+            case PUSH_RDX :
+            {
+                if (stack_push(&(loc_CPU.stk), loc_CPU.rdx) == 0) { 
+                    printf("push compleated successful.\n");
+                    loc_CPU.IP += 1;
+                    break; 
+                } 
+                else { 
+                    printf("Error with push rdx.\n");
                     printf("instruction pointer IP = [%d]\n", loc_CPU.IP);
                     break; 
                 }
