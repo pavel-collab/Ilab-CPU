@@ -88,11 +88,12 @@ int ASM (FILE* assembler, string* strings, long long str_number) {
 
         keyword = strtok(strings[i].str, " \n");
 
-        printf("keyword = %s\n", keyword);
-
         while (keyword != NULL) {
             if (!strcmp(keyword, "add")) {
                 fprintf(assembler, "%d\n", ADD);
+
+                keyword = strtok(NULL, " \n");
+                fprintf(assembler, "%d\n", atoi(keyword));
             }
             else if (!strcmp(keyword, "sum")) {
                 fprintf(assembler, "%d\n", SUM);
@@ -110,7 +111,8 @@ int ASM (FILE* assembler, string* strings, long long str_number) {
                 fprintf(assembler, "%d\n", END);
             }
             else {
-                fprintf(assembler, "%d\n", atoi(keyword));
+                printf("Error, unexpected command\n");
+                return -1;
             }
 
             keyword = strtok(NULL, " \n");

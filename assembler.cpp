@@ -29,20 +29,11 @@ int main(int argc, char* argv[]) {
 
     int str_number = FindPoint(buf);
 
-    printf("str_number = %d\n", str_number);
-
     string* strings = (string*) calloc(str_number, sizeof(string));
     Fill_StringS(buf, strings, size_of_file);
 
-    for (int i = 0; i < str_number; i++) {
-        printf("string[%d] : %s\n", i, strings[i].str);
-    }
 
-    printf("start of working func\n\n\n");
-
-    ASM(assembler, strings, str_number);
-
-    printf("end of working func\n\n\n");
+    if (ASM(assembler, strings, str_number) != 0) return -1;
 
     free(strings);
     free(buf);
