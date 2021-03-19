@@ -13,9 +13,10 @@ assert(assemble != NULL);
 FILE* command_list = fopen("disassembled_code.txt", "wb");
 assert(command_list != NULL);
 
-long long size_of_file = file_size(assemble);
+// функция file_size() возвращает количество ВСЕХ символов, включая \n, \0 и пробелы
+// таким образом бля получения количества числовых команд выполняем: (file_size(assemble) - 3) / 2
+long long size_of_file = (file_size(assemble) - 3) / 2;
 
-printf("size_of_file = %lli", size_of_file);
 
 dis_asm(assemble, command_list, size_of_file);
 
