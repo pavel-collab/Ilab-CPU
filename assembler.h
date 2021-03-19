@@ -82,9 +82,7 @@ long long FindPoint(char* stream){
 int ASM (FILE* assembler, string* strings, long long str_number) {
 
     int i = 0;                                                     
-    char* keyword = NULL; 
-
-    printf("working1\n");   
+    char* keyword = NULL;    
 
     while (i < str_number) {     
 
@@ -92,39 +90,30 @@ int ASM (FILE* assembler, string* strings, long long str_number) {
 
         printf("keyword = %s\n", keyword);
 
-        while (keyword != NULL) { 
+        while (keyword != NULL) {
+            if (!strcmp(keyword, "add")) {
+                fprintf(assembler, "%d\n", ADD);
+            }
+            else if (!strcmp(keyword, "sum")) {
+                fprintf(assembler, "%d\n", SUM);
+            }
+            else if (!strcmp(keyword, "mul")) {
+                fprintf(assembler, "%d\n", MUL);
+            }
+            else if (!strcmp(keyword, "div")) {
+                fprintf(assembler, "%d\n", DIV);
+            }
+            else if (!strcmp(keyword, "out")) {
+                fprintf(assembler, "%d\n", OUT);
+            }
+            else if (!strcmp(keyword, "end")) {
+                fprintf(assembler, "%d\n", END);
+            }
+            else {
+                fprintf(assembler, "%d\n", atoi(keyword));
+            }
 
-            if (keyword, "add")  {                                 
-                fprintf(assembler, "%d\n", ADD);  
-
-                keyword = strtok(NULL, " \n");
-
-                printf("keyword = %s\n", keyword);
-
-                fprintf(assembler, "%d\n", atoi(keyword));  
-            }                                                      
-            else if (keyword, "sum")  {                            
-                fprintf(assembler, "%d\n", SUM);                   
-            }                                                      
-            else if (keyword, "mul")  {                            
-                fprintf(assembler, "%d\n", MUL);                   
-            }                                                      
-            else if (keyword, "div")  {                            
-                fprintf(assembler, "%d\n", DIV);                   
-            }                                                      
-            else if (keyword, "out")  {                            
-                fprintf(assembler, "%d\n", OUT);                   
-            }                                                      
-            else if (keyword, "end")  {                            
-                fprintf(assembler, "%d\n", END);                   
-            }                                                      
-            else {                                                
-                printf("Error, unexpected command\n");             
-                abort();                                           
-            }    
-
-            keyword = strtok(NULL, " \n");                         
-            printf("keyword = %s\n"); 
+            keyword = strtok(NULL, " \n");
         }    
 
         i++;                                                       
